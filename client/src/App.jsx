@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 const DEMO_DATE = '2026-09-16';
 const emptyPatient = { fullName: '', phone: '', dateOfBirth: '' };
 const emptyBooking = { patientId: '', staffId: '', startsAt: `${DEMO_DATE}T09:00`, endsAt: `${DEMO_DATE}T09:30`, reason: '' };
+const API_URL = process.env.VITE_API_URL || '';
 
 export default function App() {
   // Hold the temporary dashboard data and form values in browser memory
@@ -23,7 +24,7 @@ export default function App() {
     async function loadData() {
       try {
         const response = await fetch(
-          `/api/data?date=${encodeURIComponent(date)}&q=${encodeURIComponent(search)}`,
+          `${API_URL}/api/data?date=${encodeURIComponent(date)}&q=${encodeURIComponent(search)}`,
         );
         const body = await response.json();
         if (!response.ok) throw new Error(body.error);
@@ -62,7 +63,7 @@ export default function App() {
     async function submitBooking(event) {
     event.preventDefault();
     try {
-      await request('/api/appointments', {
+      await request(`${API_URL}/api/appointments`, {
         method: 'POST',
         body: JSON.stringify(booking),
       });
@@ -75,7 +76,7 @@ export default function App() {
 
     async function updateStatus(id, status) {
     try {
-      await request(`/api/appointments/${id}/status`, {
+      await request(`${API_URL}/api/appointments/${id}/status`, {
         method: 'PATCH',
         body: JSON.stringify({ status }),
       });
@@ -88,7 +89,7 @@ export default function App() {
     async function submitReschedule(event) {
     event.preventDefault();
     try {
-      await request(`/api/appointments/${reschedule.id}/reschedule`, {
+      await request(`${API_URL}/api/appointments/${reschedule.id}/reschedule`, {
         method: 'PATCH',
         body: JSON.stringify(reschedule),
       });
@@ -102,7 +103,7 @@ export default function App() {
     async function submitPatient(event) {
     event.preventDefault();
     try {
-      await request('/api/patients', {
+      await request(`${API_URL}/api/patients`, {
         method: 'POST',
         body: JSON.stringify(patient),
       });

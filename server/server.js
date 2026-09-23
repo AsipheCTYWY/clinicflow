@@ -4,7 +4,12 @@ import pg from 'pg';
 
 const { Pool } = pg;
 const app = express();
-const pool = new Pool();
+const pool = new Pool({
+  connectionString: process.env.DATABASE_API_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
 const port = Number(process.env.PORT ?? 3000);
 const receptionistStatuses = ['Scheduled', 'Arrived', 'Cancelled'];
 const clinicianStatuses = ['In Consultation', 'Completed'];
