@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 const DEMO_DATE = '2026-09-16';
 const emptyPatient = { fullName: '', phone: '', dateOfBirth: '' };
 const emptyBooking = { patientId: '', staffId: '', startsAt: `${DEMO_DATE}T09:00`, endsAt: `${DEMO_DATE}T09:30`, reason: '' };
-const API_URL = process.env.VITE_API_URL || '';
+const API_URL = import.meta.env.VITE_API_URL ?? '';
 
 export default function App() {
   // Hold the temporary dashboard data and form values in browser memory
