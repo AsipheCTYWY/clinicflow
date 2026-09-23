@@ -1,8 +1,6 @@
-import { loadEnvFile } from 'node:process';
 import express from 'express';
 import pg from 'pg';
 
-loadEnvFile();
 
 const { Pool } = pg;
 const app = express();
