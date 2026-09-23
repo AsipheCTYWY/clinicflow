@@ -1,9 +1,12 @@
 import express from 'express';
 import pg from 'pg';
-
+import cors from 'cors';
 
 const { Pool } = pg;
 const app = express();
+app.use(cors({
+origin: 'https://clinicflow-1-h5j8.onrender.com'
+}));
 const pool = new Pool({
   connectionString: process.env.DATABASE_API_URL,
   ssl: {
